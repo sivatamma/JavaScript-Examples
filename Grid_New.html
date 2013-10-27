@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+
+    <style type="text/css">
+       .imageContainer
+        {
+            height: 40%;
+            padding: 73px;
+            width: 89%;
+        }
+        .pagination
+        {
+            height: 3%;
+            padding: 3px 11px 40px 287px;
+            width: 26%;
+        }
+        .imageContainer ul
+        {
+
+            table-layout: fixed;
+            list-style: none;
+        }
+        .imageContainer ul li img
+        {
+            border: 3px solid #CCCCCC;
+            border-radius: 7px 7px 7px 7px;
+            height: 80px;
+            opacity: 0.6;
+            width: 100px;
+        }
+        .imageContainer ul li img:hover
+        {
+            width: 103px;
+            border-color: #5E5E5E;
+
+        }
+        .ulorder li
+        {
+            display: inline-block;
+            float: left;
+            padding: 1px 45px 77px 52px;
+        }
+        .maincontainer
+        {
+            height: 738px;
+            left: 20px;
+            margin: 0 auto;
+            position: relative;
+            width: 1350px;
+        }
+        .container1eft
+        {
+            float: left;
+            height: 780px;
+            position: relative;
+            top: 68px;
+            width: 748px;
+        }
+        .containerright
+        {
+            float: right;
+            height: 300px;
+            left: 228px;
+            position: relative;
+            top: 193px;
+            width: 594px;
+        }
+        .pagination ul{
+
+        }
+        .pagination ul li{
+            display:inline-block;
+            padding: 0 24px 39px 0;
+        }
+        .containerright img{
+            height: 234px;
+            width: 352px;
+        }
+    </style>
+    <script type="text/javascript">
+        displayImage={
+            int:function(){
+                var len = document.getElementById("images").getElementsByTagName("img").length;
+                displayImage.createUl();
+                var cal =Math.ceil(len/6);
+                for(var i=1; i<=cal ;i++){
+                    displayImage.createLinks(i);
+                }
+                displayImage.displayPagination();
+            },
+
+            createUl:function(){
+                var createUl = document.createElement("ul");
+                createUl.id="paginationUl";
+                createUl.className="paginationUl";
+                document.getElementById("pagination").appendChild(createUl);
+            },
+            createLinks:function(i){
+                var createul = document.createElement("li");
+                document.getElementById("paginationUl").appendChild(createul);
+                var createanchor = document.createElement("a");
+                createanchor.rel=i;
+                createanchor.href="javascript:void(0)";
+                createanchor.innerHTML=i;
+                createul.appendChild(createanchor);
+            },
+            displayPagination:function(){
+                var ulorder = document.createElement("ul");
+                ulorder.id="ulorder";
+                ulorder.className="ulorder";
+                document.getElementById("imageContainer").appendChild(ulorder);
+            },
+            createli:function(){
+                for(var t=0; t<6; t++){
+                    var liorder = document.createElement("li");
+                    document.getElementById("ulorder").appendChild(liorder);
+                    var imgorder = document.createElement("img");
+                    imgorder.src = document.getElementById("images").getElementsByTagName("img")[t].getAttribute("src");
+                    liorder.appendChild(imgorder);
+                }
+            },
+            removeimgsrc:function(){
+                for(var t=0; t<6; t++){
+                    var y =document.getElementById("ulorder").getElementsByTagName("li")[t].getElementsByTagName("img")[0];
+                    y.setAttribute("src","");
+                    y.style.border=0;
+                }
+            }
+        }
+
+        window.onload = function(){
+
+            displayImage.int();
+            var elements = document.getElementById("paginationUl").getElementsByTagName("li");
+            displayImage.createli();
+
+
+            for(var k=0; k<elements.length; k++)
+            {
+                elements[k].onclick=function(){
+
+                    displayImage.removeimgsrc();
+                    var x = parseInt(this.getElementsByTagName('a')[0].getAttribute('rel'))-1;
+                    var g=0;
+                    var lenimg = document.getElementById("images").getElementsByTagName("img").length;
+                    for(var h=(x*6); h<((x+1)*6);h++){
+                        if(h==lenimg){
+                            break;
+                        }else{
+                        var imgtag =document.getElementById("images").getElementsByTagName("img")[h].getAttribute("src");
+                        var srcattr = document.getElementById("ulorder").getElementsByTagName("li")[g].getElementsByTagName("img")[0];
+                        srcattr.setAttribute("src",imgtag);
+                        srcattr.style.border="3px solid #CCCCCC";
+                        g++;
+                        }
+                    }
+                }
+            }
+            var imageuls = document.getElementById("ulorder").getElementsByTagName("li");
+            var t;
+            for(var c=0 ; c<imageuls.length;c++){
+                imageuls[c].onclick=function(){
+                 t = this.getElementsByTagName('img')[0].getAttribute('src');
+                 document.getElementById("containerright").getElementsByTagName("img")[0].setAttribute("src",t);
+                }
+
+            }
+        }
+
+    </script>
+</head>
+<body>
+<div class="maincontainer">
+    <div id="container1eft" class="container1eft">
+
+        <div id="imageContainer" class="imageContainer">
+
+        </div>
+        <div id="images" style="display: none">
+            <img  src="images/1.jpg" alt="Smiley face" height="100" width="80">
+            <img  src="images/2.jpg" alt="Smiley face" height="100" width="80">
+            <img  src="images/3.jpg" alt="Smiley face" height="100" width="80">
+            <img  src="images/4.jpg" alt="Smiley face" height="100" width="80">
+            <img  src="images/5.jpg" alt="Smiley face" height="100" width="80">
+            <img  src="images/6.jpg" alt="Smiley face" height="100" width="80">
+
+            <img  src="images/1.jpg" alt="Smiley face" height="100" width="80">
+            <img  src="images/2.jpg" alt="Smiley face" height="100" width="80">
+            <img  src="images/3.jpg" alt="Smiley face" height="100" width="80">
+            <img  src="images/4.jpg" alt="Smiley face" height="100" width="80">
+            <img  src="images/5.jpg" alt="Smiley face" height="100" width="80">
+            <img  src="images/6.jpg" alt="Smiley face" height="100" width="80">
+            <img  src="images/5.jpg" alt="Smiley face" height="100" width="80">
+            <img  src="images/6.jpg" alt="Smiley face" height="100" width="80">
+
+            <img  src="images/6.jpg" alt="Smiley face" height="100" width="80">
+            <img  src="images/1.jpg" alt="Smiley face" height="100" width="80">
+            <img  src="images/2.jpg" alt="Smiley face" height="100" width="80">
+            <img  src="images/3.jpg" alt="Smiley face" height="100" width="80">
+            <img  src="images/4.jpg" alt="Smiley face" height="100" width="80">
+            <img  src="images/5.jpg" alt="Smiley face" height="100" width="80">
+            <img  src="images/6.jpg" alt="Smiley face" height="100" width="80">
+            <img  src="images/5.jpg" alt="Smiley face" height="100" width="80">
+            <img  src="images/6.jpg" alt="Smiley face" height="100" width="80">
+            <img  src="images/1.jpg" alt="Smiley face" height="100" width="80">
+            <img  src="images/2.jpg" alt="Smiley face" height="100" width="80">
+            <img  src="images/3.jpg" alt="Smiley face" height="100" width="80">
+            <img  src="images/4.jpg" alt="Smiley face" height="100" width="80">
+            <img  src="images/5.jpg" alt="Smiley face" height="100" width="80">
+            <img  src="images/6.jpg" alt="Smiley face" height="100" width="80">
+
+            <img  src="images/1.jpg" alt="Smiley face" height="100" width="80">
+            <img  src="images/2.jpg" alt="Smiley face" height="100" width="80">
+
+
+        </div>
+        <div id="pagination" class="pagination">
+
+        </div>
+    </div>
+    <div id="containerright" class="containerright">
+        <img src=""/>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,172 @@
+<!-- saved from url=(0022)http://internet.e-mail -->
+<!-- saved from url=(0022)http://internet.e-mail -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Json data inside Light Box</title>
+    <style type="text/css">
+        .layer{
+            position:absolute;
+            left:0px; top:0px;
+            width:100%;
+            min-height:300px;
+            height:100%;
+            background:#000;
+            opacity:.6;
+            z-index: 1;
+        }
+        .pcontainer{
+            position:absolute;
+            min-width:400px;
+            min-height:400px;
+            z-index: 2;
+        }
+        .content{
+            width:400px;
+            height:360px;
+            left:0px; top:0px;
+            border:1px solid #C90;
+            background:#FFF;
+        }
+
+        .closebutton{
+            background: none repeat scroll 0 0 #FFFFFF;
+            bottom: 0;
+            height: 30px;
+            position: absolute;
+            right: 0;
+            width: 40px;
+            text-align: center;
+            font-size:150%;
+            text-decoration: none;
+            color: black;
+        }
+
+        .navigation{
+            list-style-type: none;
+        }
+
+    </style>
+</head>
+
+<body>
+<div style="width:800px; margin:auto;">
+    <div id="left_block" style="width:200px; float:left; float:left; min-height:500px; border-right:1px solid #CCC; ">
+
+    </div>
+    <div id="content_block" style="float:right; width:598px; background:#EEE; min-height:500px;">
+
+    </div>
+</div>
+<script type="text/javascript">
+
+    lightBox =  {
+        close:function()
+        {
+            document.body.removeChild(document.getElementById("popup"));
+            document.body.removeChild(document.getElementById("layer"));
+        },
+        int:function(data)
+        {
+            lightBox.layer();
+            lightBox.popup(data);
+        },
+        layer:function(e)
+        {
+            var layer  = document.createElement("div");
+            layer.id ="layer";
+            layer.className = "layer";
+            document.body.appendChild(layer);
+
+        },
+        popup:function(data)
+        {
+            var pContainer  = document.createElement("div");
+            pContainer.id = "popup";
+            pContainer.className = "pcontainer";
+            document.body.appendChild(pContainer);
+
+            var widthcal   = (window.innerWidth-document.getElementById("popup").offsetWidth)/2;
+            document.getElementById("popup").style.left=widthcal+'px';
+            var heigthcal = (window.innerHeight-document.getElementById("popup").offsetHeight)/2;
+            document.getElementById("popup").style.top=heigthcal+'px';
+
+            var content = document.createElement("div");
+            content.id = "content";
+            content.className = "content";
+            content.innerHTML = data;
+            document.getElementById("popup").appendChild(content);
+
+            var closebutton = document.createElement("a");
+            closebutton.id = "closebutton";
+            closebutton.className = "closebutton";
+            closebutton.setAttribute('href','javascript:void(0)');
+            closebutton.innerHTML="X";
+            document.getElementById("popup").appendChild(closebutton);
+
+        }
+    }
+    var JSONObject  =  [{id:1, linktext:"link One", data:"JSON (JavaScript Object Notation) is a lightweight data-interchange format. It is easy for humans to read and write. It is easy for machines to parse and generate. It is based on a subset of the JavaScript Programming Language, Standard ECMA-262 3rd Edition - December 1999. JSON is a text format that is completely language independent but uses conventions that are familiar to programmers of the C-family of languages, including C, C++, C#, Java, JavaScript, Perl, Python, and many others. These properties make JSON an ideal data-interchange language.."}, {id:2, linktext:"link Two", data:"An object is an unordered set of name/value pairs. An object begins with { (left brace) and ends with } (right brace). Each name is followed by : (colon) and the name/value pairs are separated by , (comma)."}, {id:3, linktext:"link Three", data:"A string is a sequence of zero or more Unicode characters, wrapped in double quotes, using backslash escapes. A character is represented as a single character string. A string is very much like a C or Java string."}, {id:4, linktext:"link Four", data:"JSON (JavaScript Object Notation) is a lightweight data-interchange format. It is easy for humans to read"}, {id:5, linktext:"link five", data:"A collection of name/value pairs. In various languages, this is realized as an object, record, struct, dictionary, hash table, keyed list, or associative array."} , {id:6, linktext:"link six", data:"After almost three years of feedback (thanks!), the 1.0 release is almost ready. We are hoping to complete it for Q1 or Q2 of 2009. The remaining enhancements are (r2) dependency on ASM, (r7) registering types, (r20) strategies and critical bugs r11, r15.A collection of name/value pairs. In various languages, this is realized as an object, record, struct, dictionary, hash table, keyed list, or associative array."}];
+
+    var page = {
+        int:function()
+        {
+            page.prepareNavigation();
+        },
+        prepareNavigation:function()
+        {
+            var html =  "<ul class='navigation' id='navigation'>";
+            for(var i=0; i<JSONObject.length; i++)
+            {
+                html +=  "<li><a href='javascript:void(0)' rel='"+ JSONObject[i].id +"'>";
+                html += JSONObject[i].linktext
+                html += "</a></li>"
+            }
+            html += "</ul>";
+            document.getElementById('left_block').innerHTML = html;
+            page.bindEvent();
+        },
+        bindEvent:function()
+        {
+            var elements  =  document.getElementById('navigation').getElementsByTagName("li");
+            for(var k=0; k<elements.length; k++)
+            {
+                elements[k].onclick =  function()
+                {
+                    var reference = parseInt(this.getElementsByTagName('a')[0].getAttribute('rel'));
+                    page.populatingcontent(reference);
+                }
+            }
+        },
+        populatingcontent:function(refId)
+        {
+            var content = JSONObject[refId-1].data;
+
+            if(content.toString().length<100)
+            {
+                document.getElementById('content_block').innerHTML =content;
+            }
+            else
+            {
+                var presentData = content.substring(0,100);
+                //  var content = "<p id='data'>"+content+"</p>";
+                document.getElementById('content_block').innerHTML =presentData+"<a href='javascript:void(0)' id='moreContent'>more</a> ";
+                document.getElementById("moreContent").addEventListener("click",function(event){
+                    lightBox.int(content);
+                    event.preventDefault();
+                    document.getElementById('layer').addEventListener("click", lightBox.close, false);
+                    document.getElementById('closebutton').addEventListener("click", lightBox.close, true);
+                }, true);
+            }
+        }
+    }
+
+
+    window.onload =  function(){
+        page.int();
+    }
+</script>
+
+</body>
+</html>

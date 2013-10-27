@@ -1,0 +1,115 @@
+<!-- saved from url=(0022)http://internet.e-mail -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Untitled Document</title>
+    <script type='text/javascript'>
+        var page = {
+            int:function(){
+               
+                document.getElementById('prev').disabled = true;
+
+            }
+        };
+        var button = {
+
+            next:function(){
+
+                counter+=1;
+                leftPos = -(counter*82)+"px";
+                document.getElementById('list').style.left =leftPos;
+                if(counter==9){
+                    document.getElementById('next').disabled = true;
+                }
+                if(counter>=0){
+                    document.getElementById('prev').disabled = false;
+                }
+            },
+            previous:function(){
+                counter -= 1;
+                leftPos = -(counter * 82)+"px";
+
+                document.getElementById('list').style.left =leftPos;
+                if(counter<=9){
+                    document.getElementById('next').disabled = false;
+                }
+                if(counter==0){
+                    document.getElementById('prev').disabled = true;
+                }
+            }
+        };
+        var counter=0;
+
+        window.onload =  function(){
+
+            page.int();
+            document.getElementById('next').addEventListener("click", function(){
+                button.next();
+            });
+            document.getElementById('prev').addEventListener("click", function(){
+                button.previous();
+            });
+        }
+
+    </script>
+
+    <style type="text/css">
+
+        .container{
+            margin:auto;
+            margin-top:100px;
+            width:265px;
+            height:105px;
+            overflow:hidden;
+            position:relative;
+        }
+        .container ul{
+            margin:0px;
+            padding:0px;
+            position:absolute;
+            left:0px;
+            top:0px;
+            width:1220px;
+        }
+        .container ul li{
+            float:left;
+            width:80px;
+            list-style:none;
+            height:100px;
+            border:1px solid #CCC;
+            margin-left:5px;
+        }
+
+        .buttoncontainer{
+            margin:auto;
+        }
+
+    </style>
+</head>
+
+
+
+
+<body>
+
+<div class="container">
+    <ul id="list">
+        <li><img id="1" src="images/1.jpg" alt="Smiley face" height="100" width="80"> </li>
+        <li><img id="2" src="images/2.jpg" alt="Smiley face" height="100" width="80"> </li>
+        <li><img id="3" src="images/3.jpg" alt="Smiley face" height="100" width="80"> </li>
+        <li><img id="4" src="images/4.jpg" alt="Smiley face" height="100" width="80"> </li>
+        <li><img id="5" src="images/5.jpg" alt="Smiley face" height="100" width="80"> </li>
+        <li><img id="6" src="images/6.jpg" alt="Smiley face" height="100" width="80"> </li>
+        <li><img id="7" src="images/7.jpg" alt="Smiley face" height="100" width="80"> </li>
+        <li><img id="8" src="images/8.jpg" alt="Smiley face" height="100" width="80"> </li>
+        <li><img id="9" src="images/9.jpg" alt="Smiley face" height="100" width="80"> </li>
+
+    </ul>
+</div>
+
+<button id='prev'>Prev</button>
+<button id='next'>Next</button>
+
+</body>
+</html>
